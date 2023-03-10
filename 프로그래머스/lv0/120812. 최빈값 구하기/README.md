@@ -78,3 +78,50 @@
 
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://programmers.co.kr/learn/challenges
+
+
+## 풀이
+
+```
+class Solution {
+    public int solution(int[] array) {
+        int answer = 0; //최빈값
+        int max = 0; 
+        int count [] = new int[1000+1]; //값별 개수 카운트 배열
+        
+        for(int i=0; i<array.length; i++) {  //입력받은 배열의 해당하는 count 배열 값을 증가
+            count[array[i]]++;
+            if(max < count[array[i]]) {     //배열의 값이 max보다 크면 해당 값을 최빈값으로 지정
+                max = count[array[i]];
+                answer = array[i];
+            }
+        }
+        
+        int temp = 0;   //최빈값이 두개이상인 경우에는 -1 리턴
+        for(int j=0; j<1001; j++) {
+            if(max == count[j])
+                temp ++;
+            if (temp > 1)
+                answer = -1;
+        }
+        
+        return answer;
+    }
+}
+```
+
+최빈값이란 주어진 데이터 중 가장 많이 중복된 값을 말한다.
+
+제한사항에서 보는 것과 같이 array의 원소의 범위는 0~1000이므로
+
+count라는 배열을 만들어 1~1000의 범위를 지정해준다.
+
+for문을 이용해 입력받은 array 배열의 값에 해당하는 count 배열의 인덱스 값을 증가시킨다.
+
+이때 if문을 이용하여 해당 배열의 값이 max 보다 크면 그 값을 max에 넣고 최빈값으로 지정한다.
+
+이후 계속해서 for문을 돌면서 최빈값이 갱신된다.
+
+만약, 최빈값이 여러개인 경우에는 아래 temp 변수를 이용해
+
+for문을 돌면서 최빈값이 두 개 이상인 경우를 찾고 answer이 -1을 리턴하도록 한다.
