@@ -71,3 +71,82 @@
 
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://programmers.co.kr/learn/challenges
+
+## 풀이 1 ( Arrays.copyofRange() 사용 )
+
+```
+import java.util.*;
+
+class Solution {
+    public int[] solution(int[] numbers, int num1, int num2) {
+        int[] answer = {};
+        
+        answer = Arrays.copyOfRange(numbers, num1, (num2 + 1));
+    
+        return answer;
+    }
+}
+```
+Arrays.copyofRange() 메소드를 사용해 해결했다.
+
+첫번째 인자에 배열을 넣고, 두번째 인자에는 시작 값, 마지막 인자에는 마지막 값의 +1을 한다.
+
+그러면 시작 값에 입력한 num1의 값인 인덱스부터 num2+1의 값의 인덱스에 해당하는 배열의 값이
+
+answer 배열에 들어가게 되고 이를 반환하면 풀리는 문제이다.
+
+
+## 풀이 2 (for 반복문 사용)
+
+```
+class Solution {
+    public int[] solution(int[] numbers, int num1, int num2) {
+
+        int[] answer = new int [num2-num1+1];
+		
+		int index = 0;
+		for(int i = num1; i<=num2; i++) {
+			answer[index] = numbers[i];
+			index++;
+		}
+        
+        return answer;
+    }
+}
+```
+
+내가 풀다가 시도했던 풀이와 비슷하지만 성공한 풀이코드이다.
+
+이중 for문이 아닌 index를 0으로 초기화하고 ++연산을 수행하면서 answer배열에 값을 채워넣는다.
+
+하나배워갑니당..
+
+
+## 번외 (내가 실패한 풀이)
+
+```
+class Solution {
+    public int[] solution(int[] numbers, int num1, int num2) {
+        int[] answer = new int [num2-num1+1];
+        
+        for(int j=0; j<answer.length; j++) {
+            for(int i=num1; i<=num2; i++) {
+                answer[j] = numbers[i];
+            }
+        }
+        return answer;
+    }
+        
+        
+}
+```
+
+for문을 두번 사용해서 해결해보려고 했다.
+
+answer에 num1부터 num2까지의 길이만큼을 주고
+
+for문의 j에 그 길이만큼 반복하면서 numbers의 인덱스 i=num1부터 num2까지의 값을 answer에 넣으려고 했는데
+
+오류가 발생했다.
+
+위의 풀이 1, 2에 비해 길이도 길고 반복문을 두번 사용하기 때문에 만약 컴파일에 성공했더라도 수행시간도 길어졌을 것으로 판단된다.
